@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import joblib
 import numpy as np
@@ -9,13 +10,30 @@ import os
 
 app = FastAPI(title="AyurvedaAI API", version="1.0.0")
 
+# CORS: allow all origins. Do NOT combine allow_origins=["*"] with
+# allow_credentials=True — the CORS spec forbids that combination and
+# browsers silently reject the response.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Catch-all OPTIONS preflight handler — guarantees a 200 with CORS headers
+# even if the middleware ordering somehow misses a route.
+@app.options("/{rest_of_path:path}")
+async def preflight_handler(rest_of_path: str, request: Request):
+    return JSONResponse(
+        content={"ok": True},
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        },
+    )
 
 # Load model and feature columns
 MODEL_PATH = os.getenv("MODEL_PATH", "dosha_model.pkl")

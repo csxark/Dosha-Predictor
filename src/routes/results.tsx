@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useRouterState } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Check, RotateCcw, Sparkles, AlertCircle } from "lucide-react";
+import { Check, RotateCcw, Sparkles, AlertCircle, Share2, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import {
   DOSHA_META,
@@ -15,6 +16,7 @@ interface ResultsState {
   answers?: Partial<AssessmentAnswers>;
   source?: "api" | "local";
   error?: string;
+  savedDocId?: string;
 }
 
 export const Route = createFileRoute("/results")({
@@ -52,7 +54,9 @@ function Results() {
   const primary = result.primaryDosha;
   const secondary = result.secondaryDosha;
   const meta = DOSHA_META[primary];
-  const traits = topTraits(answers, primary, 4);
+  // Use API keyTraits when available, otherwise fall back to local trait matching
+  const apiTraits = result.keyTraits;
+  const localTraits = topTraits(answers, primary, 4);
 
   return (
     <PageShell>
@@ -65,7 +69,19 @@ function Results() {
               <div className="text-muted-foreground">
                 The FastAPI backend wasn't reachable
                 {state.error ? <> — <span className="font-mono">{state.error}</span></> : null}.
-                Set <span className="font-mono">VITE_API_BASE_URL</span> to your deployed model URL.
+                Set <span className="font-mono">VITE_API_URL</span> to your deployed model URL.
+              </div>
+            </div>
+          </div>
+        )}
+
+        {state?.source === "api" && (
+          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-emerald-400/30 bg-emerald-300/5 p-4 text-sm">
+            <CheckCircle2 className="h-4 w-4 mt-0.5 text-emerald-400 shrink-0" />
+            <div>
+              <div className="font-medium text-emerald-200">ML model prediction</div>
+              <div className="text-muted-foreground">
+                Result powered by the XGBoost model trained on 5,000+ Ayurvedic profiles.
               </div>
             </div>
           </div>
@@ -113,16 +129,30 @@ function Results() {
             </div>
             <h3 className="mt-2 font-display text-2xl">Key traits identified</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              These are the answers that pointed most strongly toward {primary}.
+              {apiTraits
+                ? "Traits identified by the ML model for your dominant Dosha."
+                : `These are the answers that pointed most strongly toward ${primary}.`}
             </p>
             <ul className="mt-5 space-y-2.5">
-              {traits.map((t) => (
-                <li key={t.question} className="rounded-xl bg-white/5 p-3">
-                  <div className="text-xs text-muted-foreground">{t.question}</div>
-                  <div className="text-sm font-medium">✓ {t.label}</div>
-                </li>
-              ))}
-              {traits.length === 0 && (
+              {apiTraits
+                ? apiTraits.map((trait) => (
+                    <li key={trait} className="flex items-start gap-3 rounded-xl bg-white/5 p-3">
+                      <span
+                        className="mt-0.5 grid place-items-center h-5 w-5 rounded-full shrink-0"
+                        style={{ background: meta.color }}
+                      >
+                        <Check className="h-3 w-3 text-background" />
+                      </span>
+                      <span className="text-sm font-medium">{trait}</span>
+                    </li>
+                  ))
+                : localTraits.map((t) => (
+                    <li key={t.question} className="rounded-xl bg-white/5 p-3">
+                      <div className="text-xs text-muted-foreground">{t.question}</div>
+                      <div className="text-sm font-medium">✓ {t.label}</div>
+                    </li>
+                  ))}
+              {!apiTraits && localTraits.length === 0 && (
                 <li className="text-sm text-muted-foreground">Mixed signals — your constitution is balanced.</li>
               )}
             </ul>
@@ -135,15 +165,40 @@ function Results() {
             medical diagnosis or treatment. Consult a qualified practitioner
             for health concerns.
           </p>
-          <Link
-            to="/assessment"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm hover:bg-white/5"
-          >
-            <RotateCcw className="h-4 w-4" /> Retake assessment
-          </Link>
+          <div className="flex items-center gap-3">
+            {state?.savedDocId && <ShareButton />}
+            <Link
+              to="/assessment"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm hover:bg-white/5"
+            >
+              <RotateCcw className="h-4 w-4" /> Retake assessment
+            </Link>
+          </div>
         </div>
       </section>
     </PageShell>
+  );
+}
+
+function ShareButton() {
+  const [copied, setCopied] = useState(false);
+
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={copyLink}
+      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm hover:bg-white/5 transition"
+    >
+      {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <Share2 className="h-4 w-4" />}
+      {copied ? "Copied!" : "Share"}
+    </button>
   );
 }
 

@@ -1,16 +1,17 @@
 export type Dosha = "Vata" | "Pitta" | "Kapha";
 
+// Field names MUST match the backend AssessmentInput schema exactly.
 export interface AssessmentAnswers {
   bodyFrame: string;
   paceOfWork: string;
   bodyEnergy: string;
-  hunger: string;
-  hair: string;
-  sleep: string;
+  hungerPattern: string;
+  hairType: string;
+  sleepPattern: string;
   mentalActivity: string;
-  voice: string;
-  joints: string;
-  skin: string;
+  voiceQuality: string;
+  jointStructure: string;
+  skinType: string;
   bodyOdor: string;
 }
 
@@ -27,106 +28,107 @@ export interface Question {
   options: QuestionOption[];
 }
 
+// Option `value`s MUST match the backend ENCODING_MAPS keys exactly.
 export const QUESTIONS: Question[] = [
   {
     id: "bodyFrame",
     title: "How would you describe your body frame?",
     hint: "Think about your natural build, not current weight.",
     options: [
-      { value: "thin", label: "Thin and Lean", dosha: "Vata" },
-      { value: "medium", label: "Medium", dosha: "Pitta" },
-      { value: "well-built", label: "Well Built", dosha: "Kapha" },
+      { value: "Thin and Lean", label: "Thin and Lean", dosha: "Vata" },
+      { value: "Medium", label: "Medium", dosha: "Pitta" },
+      { value: "Well Built", label: "Well Built", dosha: "Kapha" },
     ],
   },
   {
     id: "paceOfWork",
     title: "What pace do you usually work at?",
     options: [
-      { value: "fast", label: "Fast", dosha: "Vata" },
-      { value: "medium", label: "Medium", dosha: "Pitta" },
-      { value: "slow", label: "Slow & Steady", dosha: "Kapha" },
+      { value: "Fast", label: "Fast", dosha: "Vata" },
+      { value: "Medium", label: "Medium", dosha: "Pitta" },
+      { value: "Slow", label: "Slow & Steady", dosha: "Kapha" },
     ],
   },
   {
     id: "bodyEnergy",
     title: "How is your body's energy through the day?",
     options: [
-      { value: "low", label: "Comes in bursts, then dips", dosha: "Vata" },
-      { value: "high", label: "Intense and focused", dosha: "Pitta" },
-      { value: "medium", label: "Steady and enduring", dosha: "Kapha" },
+      { value: "Low", label: "Comes in bursts, then dips", dosha: "Vata" },
+      { value: "High", label: "Intense and focused", dosha: "Pitta" },
+      { value: "Medium", label: "Steady and enduring", dosha: "Kapha" },
     ],
   },
   {
-    id: "hunger",
+    id: "hungerPattern",
     title: "How regular is your hunger?",
     options: [
-      { value: "skips", label: "I often skip meals", dosha: "Vata" },
-      { value: "sharp", label: "Sharp, must eat on time", dosha: "Pitta" },
-      { value: "regular", label: "Regular but mild", dosha: "Kapha" },
+      { value: "Skips Meals", label: "I often skip meals", dosha: "Vata" },
+      { value: "Regular", label: "Sharp & regular, must eat on time", dosha: "Pitta" },
+      { value: "Irregular", label: "Mild, can wait to eat", dosha: "Kapha" },
     ],
   },
   {
-    id: "hair",
+    id: "hairType",
     title: "What's your hair like?",
     options: [
-      { value: "dry", label: "Dry & frizzy", dosha: "Vata" },
-      { value: "normal", label: "Fine, normal", dosha: "Pitta" },
-      { value: "greasy", label: "Thick & oily", dosha: "Kapha" },
+      { value: "Dry", label: "Dry & frizzy", dosha: "Vata" },
+      { value: "Normal", label: "Fine, normal", dosha: "Pitta" },
+      { value: "Greasy", label: "Thick & oily", dosha: "Kapha" },
     ],
   },
   {
-    id: "sleep",
+    id: "sleepPattern",
     title: "How do you sleep?",
     options: [
-      { value: "light", label: "Light sleeper, easily disturbed", dosha: "Vata" },
-      { value: "normal", label: "Moderate, 6–7 hrs", dosha: "Pitta" },
-      { value: "deep", label: "Deep, hard to wake", dosha: "Kapha" },
+      { value: "Light Sleeper", label: "Light sleeper, easily disturbed", dosha: "Vata" },
+      { value: "Normal", label: "Moderate, 6–7 hrs", dosha: "Pitta" },
+      { value: "Sleepy", label: "Deep, hard to wake", dosha: "Kapha" },
     ],
   },
   {
     id: "mentalActivity",
     title: "How is your mind most days?",
     options: [
-      { value: "restless", label: "Restless, lots of ideas", dosha: "Vata" },
-      { value: "active", label: "Sharp and driven", dosha: "Pitta" },
-      { value: "stable", label: "Calm and stable", dosha: "Kapha" },
+      { value: "Restless", label: "Restless, lots of ideas", dosha: "Vata" },
+      { value: "Active", label: "Sharp and driven", dosha: "Pitta" },
+      { value: "Stable", label: "Calm and stable", dosha: "Kapha" },
     ],
   },
   {
-    id: "voice",
+    id: "voiceQuality",
     title: "What's your voice like?",
     options: [
-      { value: "fast", label: "Fast & light", dosha: "Vata" },
-      { value: "rough", label: "Clear & assertive", dosha: "Pitta" },
-      { value: "deep", label: "Deep & slow", dosha: "Kapha" },
+      { value: "Fast", label: "Fast & light", dosha: "Vata" },
+      { value: "Rough", label: "Clear & assertive", dosha: "Pitta" },
+      { value: "Deep", label: "Deep & slow", dosha: "Kapha" },
     ],
   },
   {
-    id: "joints",
+    id: "jointStructure",
     title: "How do your joints feel?",
     options: [
-      { value: "light", label: "Light, sometimes cracking", dosha: "Vata" },
-      { value: "medium", label: "Medium, flexible", dosha: "Pitta" },
-      { value: "heavy", label: "Heavy and sturdy", dosha: "Kapha" },
+      { value: "Light", label: "Light, sometimes cracking", dosha: "Vata" },
+      { value: "Medium", label: "Medium, flexible", dosha: "Pitta" },
+      { value: "Heavy", label: "Heavy and sturdy", dosha: "Kapha" },
     ],
   },
   {
-    id: "skin",
+    id: "skinType",
     title: "How would you describe your skin?",
     options: [
-      { value: "dry", label: "Dry", dosha: "Vata" },
-      { value: "rough", label: "Warm, prone to redness", dosha: "Pitta" },
-      { value: "oily", label: "Soft & oily", dosha: "Kapha" },
-      { value: "soft", label: "Smooth & cool", dosha: "Kapha" },
+      { value: "Dry", label: "Dry", dosha: "Vata" },
+      { value: "Rough", label: "Warm, prone to redness", dosha: "Pitta" },
+      { value: "Oily", label: "Oily & warm", dosha: "Pitta" },
+      { value: "Soft", label: "Soft, smooth & cool", dosha: "Kapha" },
     ],
   },
   {
     id: "bodyOdor",
     title: "How is your natural body odor?",
     options: [
-      { value: "mild", label: "Mild / barely any", dosha: "Vata" },
-      { value: "strong", label: "Strong / sharp", dosha: "Pitta" },
-      { value: "moderate", label: "Moderate / earthy", dosha: "Kapha" },
+      { value: "Mild", label: "Mild / barely any", dosha: "Vata" },
+      { value: "Strong", label: "Strong / sharp", dosha: "Pitta" },
+      { value: "Moderate", label: "Moderate / earthy", dosha: "Kapha" },
     ],
   },
 ];
@@ -136,6 +138,7 @@ export interface PredictionResult {
   confidence: number;
   secondaryDosha: Dosha;
   secondaryConfidence: number;
+  keyTraits?: string[];
 }
 
 // Local fallback scoring so the app stays useful when the backend is unreachable.

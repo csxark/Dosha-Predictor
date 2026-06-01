@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 import { QUESTIONS, type AssessmentAnswers } from "@/lib/dosha";
 import { predictDosha } from "@/lib/api";
+import { saveAssessment } from "@/lib/appwrite";
 
 export const Route = createFileRoute("/assessment")({
   head: () => ({
@@ -38,11 +39,31 @@ function Assessment() {
       return;
     }
     setSubmitting(true);
-    const { result, source, error } = await predictDosha(answers as AssessmentAnswers);
-    navigate({
-      to: "/results",
-      state: { result, answers, source, error } as never,
-    });
+    try {
+      const fullAnswers = answers as AssessmentAnswers;
+      const { result, source, error } = await predictDosha(fullAnswers);
+
+      // Save to Appwrite (fire-and-forget — don't block navigation)
+      let savedDocId: string | undefined;
+      try {
+        savedDocId = await saveAssessment({
+          predictedDosha: result.primaryDosha,
+          confidence: result.confidence,
+          secondaryDosha: result.secondaryDosha,
+          answers: fullAnswers,
+        });
+      } catch (e) {
+        console.warn("Appwrite save failed:", e);
+      }
+
+      navigate({
+        to: "/results",
+        state: { result, answers: fullAnswers, source, error, savedDocId } as never,
+      });
+    } catch (e) {
+      console.error("Assessment submission failed:", e);
+      setSubmitting(false);
+    }
   }
 
   return (
