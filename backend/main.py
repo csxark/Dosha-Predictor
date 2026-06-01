@@ -272,6 +272,7 @@ def get_key_traits(data: AssessmentInput, primary_dosha: str) -> list[str]:
 
 @app.post("/predict", response_model=PredictionResponse)
 async def predict_dosha(data: AssessmentInput):
+    global model, feature_columns
     try:
         # Ensure the model is available; loads on first request to avoid slow startup
         ensure_model_loaded()
