@@ -1,4 +1,4 @@
-@import "tailwindcss" source(none);
+@import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
 
@@ -66,8 +66,15 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body { min-height: 100%; }
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
   body {
     background:
       radial-gradient(1200px 600px at 10% -10%, oklch(0.42 0.10 140 / 0.55), transparent 60%),
@@ -78,7 +85,13 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
 }
 
 @utility glass {
@@ -89,4 +102,18 @@
   box-shadow:
     0 1px 0 color-mix(in oklab, var(--color-highlight) 14%, transparent) inset,
     0 30px 60px -30px oklch(0 0 0 / 0.6);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09200b;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9bb533;
+  border-radius: 10px;
 }
