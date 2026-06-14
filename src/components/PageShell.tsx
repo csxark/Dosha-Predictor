@@ -19,11 +19,11 @@ export function PageShell({ children, onNavigate }: PageShellProps) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-30">
-        <div className="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between">
+      <header className="top-0 z-30">
+        <div className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
           <button
             onClick={handleLogoClick}
-            className="flex items-center gap-2 group hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2 group hover:opacity-80 transition-opacity cursor-pointer"
           >
             <span className="grid place-items-center h-9 w-9 rounded-xl glass">
               <Leaf className="h-4 w-4 text-accent" />
@@ -45,7 +45,7 @@ export function PageShell({ children, onNavigate }: PageShellProps) {
       >
         {children}
       </motion.main>
-      <footer className="mx-auto max-w-6xl w-full px-6 py-8 text-xs text-muted-foreground">
+      <footer className="mx-auto max-w-7xl w-full px-6 py-8 text-xs text-muted-foreground">
         © {new Date().getFullYear()} Dosha Prediction AI · Ancient wisdom, modern intelligence
       </footer>
     </div>

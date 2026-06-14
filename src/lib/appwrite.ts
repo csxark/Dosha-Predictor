@@ -23,7 +23,7 @@ export interface AssessmentDocument {
   predictedDosha: string;
   confidence: number;
   secondaryDosha: string;
-  answers: string; 
+  answers: string;
   timestamp: string;
 }
 

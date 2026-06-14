@@ -57,7 +57,7 @@ export default function Assessment({ onNavigate }: AssessmentProps) {
 
   return (
     <PageShell onNavigate={onNavigate}>
-      <section className="mx-auto max-w-2xl px-6 pt-6 pb-20">
+      <section className="mx-auto max-w-3xl px-6 pt-12">
         <div className="mb-6">
           <div className="flex justify-between text-xs text-muted-foreground mb-2">
             <span>Question {step + 1} of {total}</span>
@@ -72,7 +72,7 @@ export default function Assessment({ onNavigate }: AssessmentProps) {
           </div>
         </div>
 
-        <div className="glass rounded-3xl p-6 sm:p-8 min-h-[360px]">
+        <div className="glass rounded-3xl p-6 sm:p-8 min-h-90">
           <AnimatePresence mode="wait">
             <motion.div
               key={q.id}
@@ -81,7 +81,7 @@ export default function Assessment({ onNavigate }: AssessmentProps) {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25 }}
             >
-              <h2 className="font-display text-3xl sm:text-4xl leading-tight">{q.title}</h2>
+              <h2 className="font-display text-3xl leading-tight">{q.title}</h2>
               {q.hint && <p className="mt-2 text-sm text-muted-foreground">{q.hint}</p>}
 
               <div className="mt-6 grid gap-3">

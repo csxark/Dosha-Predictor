@@ -9,7 +9,7 @@ interface LandingProps {
 export default function Landing({ onNavigate }: LandingProps) {
   return (
     <PageShell onNavigate={onNavigate}>
-      <section className="mx-auto max-w-6xl px-6 pt-10 pb-20">
+      <section className="mx-auto max-w-7xl px-6 pt-10 pb-20">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
           <div>
             <motion.div
@@ -32,7 +32,8 @@ export default function Landing({ onNavigate }: LandingProps) {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <button
                 onClick={() => onNavigate("assessment")}
-                className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-accent-foreground font-medium hover:brightness-105 transition"
+                className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-accent-foreground font-medium 
+                hover:brightness-105 transition cursor-pointer"
               >
                 Start your assessment
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -63,7 +64,7 @@ export default function Landing({ onNavigate }: LandingProps) {
             transition={{ delay: 0.15, duration: 0.5 }}
             className="relative"
           >
-            <div className="glass rounded-[2rem] p-6 sm:p-8">
+            <div className="glass rounded-4xl p-6 sm:p-8">
               <div className="text-xs uppercase tracking-widest text-muted-foreground">Today's reading</div>
               <div className="mt-3 font-display text-4xl">Kapha · 68%</div>
               <div className="text-sm text-muted-foreground">Earth & Water — steady, calm, grounded</div>
@@ -71,7 +72,7 @@ export default function Landing({ onNavigate }: LandingProps) {
                 {[
                   { dosha: "Kapha", pct: 68, color: "var(--kapha)" },
                   { dosha: "Pitta", pct: 22, color: "var(--pitta)" },
-                  { dosha: "Vata",  pct: 10, color: "var(--vata)"  },
+                  { dosha: "Vata", pct: 10, color: "var(--vata)" },
                 ].map((b) => (
                   <div key={b.dosha}>
                     <div className="flex justify-between text-xs mb-1.5">
@@ -104,7 +105,7 @@ export default function Landing({ onNavigate }: LandingProps) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="text-center mb-12">
           <h2 className="font-display text-4xl sm:text-5xl leading-tight mb-4">
             The Three <span className="text-accent">Doshas</span>
@@ -196,7 +197,7 @@ export default function Landing({ onNavigate }: LandingProps) {
           </motion.div>
         </div>
 
-        <div className="mt-12 glass rounded-3xl p-8 bg-gradient-to-r from-accent/10 to-transparent">
+        <div className="mt-12 glass rounded-3xl p-8 bg-linear-to-r from-accent/10 to-transparent">
           <div className="max-w-3xl">
             <h3 className="font-display text-2xl mb-3">Most People Are Tri-Doshic</h3>
             <p className="text-muted-foreground leading-relaxed">

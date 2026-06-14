@@ -44,7 +44,7 @@ export default function Results({ result, answers = {}, onNavigate }: ResultsPro
 
   return (
     <PageShell onNavigate={onNavigate}>
-      <section className="mx-auto max-w-5xl px-6 pt-6 pb-24">
+      <section className="mx-auto max-w-7xl px-6 pt-10 pb-24">
         {/* Result alerts removed for simplification */}
 
         <motion.div
@@ -96,22 +96,22 @@ export default function Results({ result, answers = {}, onNavigate }: ResultsPro
             <ul className="mt-5 space-y-2.5">
               {apiTraits
                 ? apiTraits.map((trait) => (
-                    <li key={trait} className="flex items-start gap-3 rounded-xl bg-white/5 p-3">
-                      <span
-                        className="mt-0.5 grid place-items-center h-5 w-5 rounded-full shrink-0"
-                        style={{ background: meta.color }}
-                      >
-                        <Check className="h-3 w-3 text-background" />
-                      </span>
-                      <span className="text-sm font-medium">{trait}</span>
-                    </li>
-                  ))
+                  <li key={trait} className="flex items-start gap-3 rounded-xl bg-white/5 p-3">
+                    <span
+                      className="mt-0.5 grid place-items-center h-5 w-5 rounded-full shrink-0"
+                      style={{ background: meta.color }}
+                    >
+                      <Check className="h-3 w-3 text-background" />
+                    </span>
+                    <span className="text-sm font-medium">{trait}</span>
+                  </li>
+                ))
                 : localTraits.map((t) => (
-                    <li key={t.question} className="rounded-xl bg-white/5 p-3">
-                      <div className="text-xs text-muted-foreground">{t.question}</div>
-                      <div className="text-sm font-medium">✓ {t.label}</div>
-                    </li>
-                  ))}
+                  <li key={t.question} className="rounded-xl bg-white/5 p-3">
+                    <div className="text-xs text-muted-foreground">{t.question}</div>
+                    <div className="text-sm font-medium">✓ {t.label}</div>
+                  </li>
+                ))}
               {!apiTraits && localTraits.length === 0 && (
                 <li className="text-sm text-muted-foreground">Mixed signals — your constitution is balanced.</li>
               )}
@@ -129,7 +129,7 @@ export default function Results({ result, answers = {}, onNavigate }: ResultsPro
             <ShareButton />
             <button
               onClick={() => onNavigate("assessment")}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm hover:bg-white/5"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm hover:bg-white/5 cursor-pointer"
             >
               <RotateCcw className="h-4 w-4" /> Retake assessment
             </button>
@@ -154,7 +154,7 @@ function ShareButton() {
     <button
       type="button"
       onClick={copyLink}
-      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm hover:bg-white/5 transition"
+      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm hover:bg-white/5 transition cursor-pointer"
     >
       {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <Share2 className="h-4 w-4" />}
       {copied ? "Copied!" : "Share"}
