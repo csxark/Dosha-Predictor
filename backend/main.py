@@ -59,9 +59,7 @@ def ensure_model_loaded():
         model = None
         feature_columns = None
 
-# ---------------------------------------------------------------------------
 # Encoding maps — must exactly match what was used during training
-# ---------------------------------------------------------------------------
 
 ENCODING_MAPS = {
     "bodyFrame": {

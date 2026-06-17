@@ -25,7 +25,7 @@ export default function Landing({ onNavigate }: LandingProps) {
               Discover the <span className="text-accent">elements</span> that shape you.
             </h1>
             <p className="mt-5 text-lg text-muted-foreground max-w-xl">
-              Dosha Prediction AI uses a machine-learning model to predict your dominant
+              Dosha Prediction AI uses a machine-learning model to predict your dominant.
               Dosha — Vata, Pitta, or Kapha — and turns it into clear,
               personalized wellness guidance in under two minutes.
             </p>
